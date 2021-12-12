@@ -38,7 +38,7 @@ function getCharacterSelection(passwordLength) {
     !specialCharactersSelection
   ) {
     alert("You must select at least one character choice!");
-    getCharacterSelection();
+    getCharacterSelection(passwordLength);
   }
 
   // Password must include all character types
@@ -55,7 +55,7 @@ function getCharacterSelection(passwordLength) {
         var randomUpperCaseCharacter = generateRandomCharacter(upperCaseAlphabet);
         var randomNumber = generateRandomCharacter(numbers);
         var randomSpecialCharacter = generateRandomCharacter(specialCharacters)
-        debugger;
+       
         if (password.length >= passwordLength) {
             break;
         } 
@@ -129,12 +129,14 @@ function generatePassword() {
     var passwordLength = prompt(
       "Please select a length between 8 and 128 characters: "
     );
-      debugger;
+    
     passwordLength = parseInt(passwordLength);
   
     if (passwordLength >= 8 && passwordLength <= 128) {
-  
-      return getCharacterSelection(passwordLength);
+        var passwordArray = getCharacterSelection(passwordLength);
+        var password = passwordArray.join("");
+        console.log(password.length);
+      return password;
     } else {
       // if password length is not valid, prompt again
       generatePassword();
