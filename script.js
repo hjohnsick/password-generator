@@ -6,6 +6,34 @@ function generateRandomCharacter(character) {
   return randomCharacter;
 }
 
+function generateFourCharacterTypes(case1, case2, case3, case4, passwordLength) {
+  var password = [];
+  while (password.length <= passwordLength) {
+    var randomChar1 = generateRandomCharacter(case1);
+    var randomChar2 = generateRandomCharacter(case2);
+    var randomChar3 = generateRandomCharacter(case3);
+    var randomChar4 = generateRandomCharacter(case4);
+
+    if (password.length >= passwordLength) {
+      break;
+    }
+    password.push(randomChar1);
+    if (password.length >= passwordLength) {
+      break;
+    }
+    password.push(randomChar2);
+    if (password.length >= passwordLength) {
+      break;
+    }
+    password.push(randomChar3);
+    if (password.length >= passwordLength) {
+      break;
+    }
+    password.push(randomChar4);
+  }
+  return password;
+}
+
 function generateThreeCharacterTypes(case1, case2, case3, passwordLength) {
   var password = [];
   while (password.length <= passwordLength) {
@@ -26,9 +54,38 @@ function generateThreeCharacterTypes(case1, case2, case3, passwordLength) {
     }
     password.push(randomChar3);
   } 
-  console.log(password);
   return password;
  
+}
+
+function generateTwoCharacterTypes(case1, case2, passwordLength) {
+  var password = [];
+  while (password.length <= passwordLength) {
+    var randomChar1 = generateRandomCharacter(case1);
+    var randomChar2 = generateRandomCharacter(case2);
+    
+    if (password.length >= passwordLength) {
+      break;
+    }
+    password.push(randomChar1);
+    if (password.length >= passwordLength) {
+      break;
+    }
+    password.push(randomChar2);
+  } 
+  return password;
+}
+
+function generateOneCharacterType(case1, passwordLength) {
+  var password = [];
+  while (password.length <= passwordLength) {
+    var randomChar1 = generateRandomCharacter(case1);  
+    if (password.length >= passwordLength) {
+      break;
+    }
+    password.push(randomChar1);
+  } 
+  return password;
 }
 
 function getCharacterSelection(passwordLength) {
@@ -73,29 +130,7 @@ function getCharacterSelection(passwordLength) {
     numericCharacterSelection &&
     specialCharactersSelection
   ) {
-    while (password.length <= passwordLength) {
-      var randomLowerCaseCharacter = generateRandomCharacter(lowerCaseAlphabet);
-      var randomUpperCaseCharacter = generateRandomCharacter(upperCaseAlphabet);
-      var randomNumber = generateRandomCharacter(numbers);
-      var randomSpecialCharacter = generateRandomCharacter(specialCharacters);
-
-      if (password.length >= passwordLength) {
-        break;
-      }
-      password.push(randomLowerCaseCharacter);
-      if (password.length >= passwordLength) {
-        break;
-      }
-      password.push(randomUpperCaseCharacter);
-      if (password.length >= passwordLength) {
-        break;
-      }
-      password.push(randomNumber);
-      if (password.length >= passwordLength) {
-        break;
-      }
-      password.push(randomSpecialCharacter);
-    }
+    generateFourCharacterTypes(lowerCaseAlphabet, upperCaseAlphabet, numbers, specialCharacters, passwordLength);
   } // Password must include lowercase, uppercase and numbers
   else if (
     lowerCaseSelection &&
@@ -103,24 +138,6 @@ function getCharacterSelection(passwordLength) {
     numericCharacterSelection
   ) {
     return generateThreeCharacterTypes(lowerCaseAlphabet, upperCaseAlphabet, numbers, passwordLength);
-    // while (password.length <= passwordLength) {
-    //   var randomLowerCaseCharacter = generateRandomCharacter(lowerCaseAlphabet);
-    //   var randomUpperCaseCharacter = generateRandomCharacter(upperCaseAlphabet);
-    //   var randomNumber = generateRandomCharacter(numbers);
-
-    //   if (password.length >= passwordLength) {
-    //     break;
-    //   }
-    //   password.push(randomLowerCaseCharacter);
-    //   if (password.length >= passwordLength) {
-    //     break;
-    //   }
-    //   password.push(randomUpperCaseCharacter);
-    //   if (password.length >= passwordLength) {
-    //     break;
-    //   }
-    //   password.push(randomNumber);
-    // }
   } // Password must include lowercase, uppercase and special characters
   else if (
     lowerCaseSelection &&
@@ -128,24 +145,6 @@ function getCharacterSelection(passwordLength) {
     specialCharactersSelection
   ) {
     return generateThreeCharacterTypes(lowerCaseAlphabet, upperCaseAlphabet, specialCharacters, passwordLength);
-    // while (password.length <= passwordLength) {
-    //   var randomLowerCaseCharacter = generateRandomCharacter(lowerCaseAlphabet);
-    //   var randomUpperCaseCharacter = generateRandomCharacter(upperCaseAlphabet);
-    //   var randomSpecialCharacter = generateRandomCharacter(specialCharacters);
-
-    //   if (password.length >= passwordLength) {
-    //     break;
-    //   }
-    //   password.push(randomLowerCaseCharacter);
-    //   if (password.length >= passwordLength) {
-    //     break;
-    //   }
-    //   password.push(randomUpperCaseCharacter);
-    //   if (password.length >= passwordLength) {
-    //     break;
-    //   }
-    //   password.push(randomSpecialCharacter);
-    // }
   } // Password must include lowercase, numbers, and special characters
   else if (
     lowerCaseSelection &&
@@ -162,27 +161,35 @@ function getCharacterSelection(passwordLength) {
     return generateThreeCharacterTypes(upperCaseAlphabet, numbers, specialCharacters, passwordLength);
   } // Password must include uppercase and lowercase
   else if (upperCaseSelection && lowerCaseSelection) {
+    return generateTwoCharacterTypes(upperCaseAlphabet, lowerCaseAlphabet, passwordLength);
   } // Password must include uppercase and numeric
   else if (upperCaseSelection && numericCharacterSelection) {
+    return generateTwoCharacterTypes(upperCaseAlphabet, numbers);
   } // Password must include lowercase and numeric
   else if (lowerCaseSelection && numericCharacterSelection) {
+    return generateTwoCharacterTypes(lowerCaseAlphabet, numbers, passwordLength);
   } // Password must include uppercase and special character
   else if (upperCaseSelection && specialCharactersSelection) {
+    return generateTwoCharacterTypes(upperCaseAlphabet, specialCharacters);
   } // Password must include lowercase and special character
   else if (lowerCaseSelection && specialCharactersSelection) {
+    return generateTwoCharacterTypes(lowerCaseAlphabet, specialCharacters);
   } // Password must include special character and numbers
   else if (specialCharactersSelection && numericCharacterSelection) {
+    return generateTwoCharacterTypes(specialCharacters, numbers);
   } // Password must include uppercase
   else if (upperCaseSelection) {
+    return generateOneCharacterType(upperCaseAlphabet, passwordLength);
   } // Password must include lowercase
   else if (lowerCaseSelection) {
+    return generateOneCharacterType(lowerCaseAlphabet, passwordLength);
   } // Password must include special characters
   else if (specialCharactersSelection) {
+    return generateOneCharacterType(specialCharacters, passwordLength);
   } // Password must include numbers
   else {
+    return generateOneCharacterType(numbers, passwordLength);
   }
-
-  //return password;
 }
 
 function generatePassword() {
