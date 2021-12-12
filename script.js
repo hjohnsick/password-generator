@@ -1,33 +1,16 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
-function generatePassword() {
-
-  // Make password between 8 and 128 characters
-  var passwordLength = prompt(
-    "Please select a length between 8 and 128 characters: "
-  );
-
-  passwordLength = parseInt(passwordLength);
-
-  if (passwordLength >= 8 && passwordLength <= 128) {
-
-    return getCharacterSelection(passwordLength);
-  } else {
-    // if password length is not valid, prompt again
-    generatePassword();
-  }
-}
-
 function generateRandomCharacter(character) {
-    character[Math.floor(Math.random() * character.length)];
+    var randomCharacter = character[Math.floor(Math.random() * character.length)];
+    return randomCharacter;
 }
 
 function getCharacterSelection(passwordLength) {
-    var alphabet = "abcdefghijklmnopqrstuvwxyz";
-    var upperCaseAlphabet = alphabet.toUpperCase();
+    var lowerCaseAlphabet = "abcdefghijklmnopqrstuvwxyz";
+    var upperCaseAlphabet = lowerCaseAlphabet.toUpperCase();
     var specialCharacters = "!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
-    var randomNumber = Math.floor(Math.random() * 10);
+    var numbers = "0123456789";
 
     var password = [];
 
@@ -65,18 +48,32 @@ function getCharacterSelection(passwordLength) {
     numericCharacterSelection &&
     specialCharactersSelection
   ) {
-    while (password <= passwordLength) {
-        for (var i = 0; i < passwordLength; i++) {
-          var lowerCaseCharacter =
-          generateRandomCharacter(alphabet);
-          var upperCaseCharacter = generateRandomCharacter(upperCaseAlphabet);
-          var specialCharacter = generateRandomCharacter(specialCharacter);
-          password.push(lowerCaseCharacter);
-          password.push(upperCaseCharacter);
-          password.push(randomNumber);
-          password.push(specialCharacters);
-        }
-      }
+    while (password.length <= passwordLength) {
+        
+        var randomLowerCaseCharacter =
+        generateRandomCharacter(lowerCaseAlphabet);
+        var randomUpperCaseCharacter = generateRandomCharacter(upperCaseAlphabet);
+        var randomNumber = generateRandomCharacter(numbers);
+        var randomSpecialCharacter = generateRandomCharacter(specialCharacters)
+        debugger;
+        if (password.length >= passwordLength) {
+            break;
+        } 
+        password.push(randomLowerCaseCharacter);
+        if (password.length >= passwordLength) {
+            break;
+        } 
+        password.push(randomUpperCaseCharacter)
+          if (password.length >= passwordLength) {
+            break;
+        } 
+        password.push(randomNumber);
+          if (password.length >= passwordLength) {
+            break;
+        } 
+        password.push(randomSpecialCharacter); 
+          
+    }
   } // Password must include lowercase, uppercase and numbers
   else if (
     lowerCaseSelection &&
@@ -125,6 +122,24 @@ function getCharacterSelection(passwordLength) {
 
   return password;
 }
+
+function generatePassword() {
+
+    // Make password between 8 and 128 characters
+    var passwordLength = prompt(
+      "Please select a length between 8 and 128 characters: "
+    );
+      debugger;
+    passwordLength = parseInt(passwordLength);
+  
+    if (passwordLength >= 8 && passwordLength <= 128) {
+  
+      return getCharacterSelection(passwordLength);
+    } else {
+      // if password length is not valid, prompt again
+      generatePassword();
+    }
+  }
 
 // Write password to the #password input
 function writePassword() {
