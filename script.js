@@ -8,6 +8,7 @@ function generateRandomCharacter(character) {
 
 function generateFourCharacterTypes(case1, case2, case3, case4, passwordLength) {
   var password = [];
+ 
   while (password.length <= passwordLength) {
     var randomChar1 = generateRandomCharacter(case1);
     var randomChar2 = generateRandomCharacter(case2);
@@ -36,6 +37,7 @@ function generateFourCharacterTypes(case1, case2, case3, case4, passwordLength) 
 
 function generateThreeCharacterTypes(case1, case2, case3, passwordLength) {
   var password = [];
+ 
   while (password.length <= passwordLength) {
     var randomChar1 = generateRandomCharacter(case1);
     var randomChar2 = generateRandomCharacter(case2);
@@ -60,6 +62,7 @@ function generateThreeCharacterTypes(case1, case2, case3, passwordLength) {
 
 function generateTwoCharacterTypes(case1, case2, passwordLength) {
   var password = [];
+  
   while (password.length <= passwordLength) {
     var randomChar1 = generateRandomCharacter(case1);
     var randomChar2 = generateRandomCharacter(case2);
@@ -85,6 +88,7 @@ function generateOneCharacterType(case1, passwordLength) {
     }
     password.push(randomChar1);
   } 
+  
   return password;
 }
 
@@ -93,9 +97,7 @@ function getCharacterSelection(passwordLength) {
   var upperCaseAlphabet = lowerCaseAlphabet.toUpperCase();
   var specialCharacters = "!\"#$%&'()*+,-./:;<=>?@[]^_`{|}~";
   var numbers = "0123456789";
-
-  // var password = [];
-
+  var passwordArray;
   // Ask if user wants to include lowercase characters
   var lowerCaseSelection = confirm(
     "Do you want to include lowercase characters?"
@@ -118,79 +120,82 @@ function getCharacterSelection(passwordLength) {
     !upperCaseSelection &&
     !numericCharacterSelection &&
     !specialCharactersSelection
-  ) {
+  ) 
+  {
     alert("You must select at least one character choice!");
     getCharacterSelection(passwordLength);
   }
-
   // Password must include all character types
-  if (
+  else if (
     lowerCaseSelection &&
     upperCaseSelection &&
     numericCharacterSelection &&
     specialCharactersSelection
   ) {
-    generateFourCharacterTypes(lowerCaseAlphabet, upperCaseAlphabet, numbers, specialCharacters, passwordLength);
+    passwordArray = generateFourCharacterTypes(lowerCaseAlphabet, upperCaseAlphabet, numbers, specialCharacters, passwordLength);
   } // Password must include lowercase, uppercase and numbers
   else if (
     lowerCaseSelection &&
     upperCaseSelection &&
     numericCharacterSelection
   ) {
-    return generateThreeCharacterTypes(lowerCaseAlphabet, upperCaseAlphabet, numbers, passwordLength);
+    passwordArray = generateThreeCharacterTypes(lowerCaseAlphabet, upperCaseAlphabet, numbers, passwordLength);
   } // Password must include lowercase, uppercase and special characters
   else if (
     lowerCaseSelection &&
     upperCaseSelection &&
     specialCharactersSelection
   ) {
-    return generateThreeCharacterTypes(lowerCaseAlphabet, upperCaseAlphabet, specialCharacters, passwordLength);
+    passwordArray = generateThreeCharacterTypes(lowerCaseAlphabet, upperCaseAlphabet, specialCharacters, passwordLength);
   } // Password must include lowercase, numbers, and special characters
   else if (
     lowerCaseSelection &&
     numericCharacterSelection &&
     specialCharactersSelection
   ) {
-    return generateThreeCharacterTypes(lowerCaseAlphabet, numbers, specialCharacters, passwordLength);
+    passwordArray = generateThreeCharacterTypes(lowerCaseAlphabet, numbers, specialCharacters, passwordLength);
   } // Password must include uppercase, numbers, and special characters
   else if (
     upperCaseSelection &&
     numericCharacterSelection &&
     specialCharactersSelection
   ) {
-    return generateThreeCharacterTypes(upperCaseAlphabet, numbers, specialCharacters, passwordLength);
+    passwordArray = generateThreeCharacterTypes(upperCaseAlphabet, numbers, specialCharacters, passwordLength);
   } // Password must include uppercase and lowercase
   else if (upperCaseSelection && lowerCaseSelection) {
-    return generateTwoCharacterTypes(upperCaseAlphabet, lowerCaseAlphabet, passwordLength);
+   passwordArray = generateTwoCharacterTypes(upperCaseAlphabet, lowerCaseAlphabet, passwordLength);
   } // Password must include uppercase and numeric
   else if (upperCaseSelection && numericCharacterSelection) {
-    return generateTwoCharacterTypes(upperCaseAlphabet, numbers);
+    passwordArray = generateTwoCharacterTypes(upperCaseAlphabet, numbers);
   } // Password must include lowercase and numeric
   else if (lowerCaseSelection && numericCharacterSelection) {
-    return generateTwoCharacterTypes(lowerCaseAlphabet, numbers, passwordLength);
+    passwordArray = generateTwoCharacterTypes(lowerCaseAlphabet, numbers, passwordLength);
   } // Password must include uppercase and special character
   else if (upperCaseSelection && specialCharactersSelection) {
-    return generateTwoCharacterTypes(upperCaseAlphabet, specialCharacters);
+    passwordArray = generateTwoCharacterTypes(upperCaseAlphabet, specialCharacters);
   } // Password must include lowercase and special character
   else if (lowerCaseSelection && specialCharactersSelection) {
-    return generateTwoCharacterTypes(lowerCaseAlphabet, specialCharacters);
+    passwordArray = generateTwoCharacterTypes(lowerCaseAlphabet, specialCharacters);
   } // Password must include special character and numbers
   else if (specialCharactersSelection && numericCharacterSelection) {
-    return generateTwoCharacterTypes(specialCharacters, numbers);
+   passwordArray = generateTwoCharacterTypes(specialCharacters, numbers);
   } // Password must include uppercase
   else if (upperCaseSelection) {
-    return generateOneCharacterType(upperCaseAlphabet, passwordLength);
+    passwordArray = generateOneCharacterType(upperCaseAlphabet, passwordLength);
   } // Password must include lowercase
   else if (lowerCaseSelection) {
-    return generateOneCharacterType(lowerCaseAlphabet, passwordLength);
+    passwordArray = generateOneCharacterType(lowerCaseAlphabet, passwordLength);
   } // Password must include special characters
   else if (specialCharactersSelection) {
-    return generateOneCharacterType(specialCharacters, passwordLength);
+    passwordArray = generateOneCharacterType(specialCharacters, passwordLength);
   } // Password must include numbers
   else {
-    return generateOneCharacterType(numbers, passwordLength);
-  }
-}
+    passwordArray = generateOneCharacterType(numbers, passwordLength);
+  };
+  
+  var password = passwordArray.join("");
+  return password;
+};
 
 function generatePassword() {
   // Make password between 8 and 128 characters
@@ -201,8 +206,8 @@ function generatePassword() {
   passwordLength = parseInt(passwordLength);
 
   if (passwordLength >= 8 && passwordLength <= 128) {
-    var passwordArray = getCharacterSelection(passwordLength);
-    var password = passwordArray.join("");
+    var password = getCharacterSelection(passwordLength);
+    // var password = passwordArray.join("");
     console.log(password.length);
     return password;
   } else {
