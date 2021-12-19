@@ -11,4 +11,7 @@ I learned about conditional statements and generating random data.
 ### Languages Used
 Javascript and HTML/CSS
 
+[Link to deployed site](https://hjohnsick.github.io/password-generator/)
+<br>
 ![Password Generator](Capture.PNG)
+
