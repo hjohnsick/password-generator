@@ -98,7 +98,8 @@ function getCharacterSelection(passwordLength) {
   var specialCharacters = "!\"#$%&'()*+,-./:;<=>?@[]^_`{|}~";
   var numbers = "0123456789";
   
-  // Ask if user wants to include lowercase characters
+  do {
+    // Ask if user wants to include lowercase characters
   var lowerCaseSelection = confirm(
     "Do you want to include lowercase characters?"
   );
@@ -120,13 +121,18 @@ function getCharacterSelection(passwordLength) {
     !upperCaseSelection &&
     !numericCharacterSelection &&
     !specialCharactersSelection
-  ) 
-  {
+  ) {
     alert("You must select at least one character choice!");
-    getCharacterSelection(passwordLength);
   }
-  // Password must include all character types
-  else if (
+  }
+  while (
+    !lowerCaseSelection &&
+    !upperCaseSelection &&
+    !numericCharacterSelection &&
+    !specialCharactersSelection
+  ) 
+  
+  if (
     lowerCaseSelection &&
     upperCaseSelection &&
     numericCharacterSelection &&
@@ -184,6 +190,7 @@ function getCharacterSelection(passwordLength) {
    return generateOneCharacterType(upperCaseAlphabet, passwordLength);
   } // Password must include lowercase
   else if (lowerCaseSelection) {
+    debugger;
     return generateOneCharacterType(lowerCaseAlphabet, passwordLength);
   } // Password must include special characters
   else if (specialCharactersSelection) {
