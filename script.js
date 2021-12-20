@@ -203,20 +203,19 @@ function getCharacterSelection(passwordLength) {
 
 function generatePassword() {
   // Make password between 8 and 128 characters
-  var passwordLength = prompt(
-    "Please select a length between 8 and 128 characters: "
-  );
-
-  passwordLength = parseInt(passwordLength);
-
-  if (passwordLength >= 8 && passwordLength <= 128) {
-    var passwordArray = getCharacterSelection(passwordLength);
-    var password = passwordArray.join("");
-    return password;
-  } else {
-    // if password length is not valid, prompt again
-    generatePassword();
+  var passwordLength;
+  do {
+    passwordLength = prompt(
+      "Please select a length between 8 and 128 characters: "
+    );
+    passwordLength = parseInt(passwordLength);
   }
+  while (passwordLength < 8 || passwordLength > 128)
+
+  var passwordArray = getCharacterSelection(passwordLength);
+  var password = passwordArray.join("");
+  return password;
+
 }
 
 // Write password to the #password input
