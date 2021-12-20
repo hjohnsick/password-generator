@@ -190,7 +190,6 @@ function getCharacterSelection(passwordLength) {
    return generateOneCharacterType(upperCaseAlphabet, passwordLength);
   } // Password must include lowercase
   else if (lowerCaseSelection) {
-    debugger;
     return generateOneCharacterType(lowerCaseAlphabet, passwordLength);
   } // Password must include special characters
   else if (specialCharactersSelection) {
